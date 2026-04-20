@@ -64,9 +64,8 @@
             border-radius: 6px;
             font-size: 1.5em;
             text-align: center;
-            -moz-appearance: textfield; /* Ocultar flechas en Firefox */
+            -moz-appearance: textfield;
         }
-        /* Ocultar flechas en Chrome, Safari, Edge */
         .form-group input[type="number"]::-webkit-outer-spin-button,
         .form-group input[type="number"]::-webkit-inner-spin-button {
             -webkit-appearance: none;
@@ -98,7 +97,7 @@
             padding: 10px;
             margin-top: 20px;
             border-radius: 5px;
-            display: none; /* Oculto por defecto */
+            display: none;
         }
         .message.success {
             background-color: #d4edda;
@@ -148,65 +147,56 @@
 
         // 3. LÓGICA DEL FORMULARIO
         dataForm.addEventListener('submit', async (event) => {
-            event.preventDefault(); // Evita que la página se recargue
+            event.preventDefault();
+            
+            const nro_ingreso = parseInt(nroIngresoInput.value, 10) || 0;
+            const nro_registro = parseInt(nroRegistroInput.value, 10) || 0;
 
-            // Deshabilitar el botón para evitar envíos múltiples
+            // --- ¡NUEVO! Mensaje de confirmación ---
+            const isConfirmed = confirm(`¿Está seguro de que desea guardar los siguientes datos?\n\n- Ingresos: ${nro_ingreso}\n- Registros: ${nro_registro}`);
+
+            if (!isConfirmed) {
+                return; // Si el usuario cancela, no hacemos nada
+            }
+            // --- FIN DEL CAMBIO ---
+
             saveButton.disabled = true;
             saveButton.textContent = 'Guardando...';
             
-            // Obtener los valores de los inputs
-            const nro_ingreso = parseInt(nroIngresoInput.value, 10);
-            const nro_registro = parseInt(nroRegistroInput.value, 10);
-
-            // Obtener la fecha actual en formato YYYY-MM-DD
             const fecha = new Date().toISOString().split('T')[0];
 
-            // Crear el objeto para enviar a Supabase
             const dataToInsert = {
                 fecha: fecha,
                 nro_ingreso: nro_ingreso,
                 nro_registro: nro_registro,
-                area: 'Recepción Emergencia', // Valor fijo por ahora
-                // 'usuario' se puede añadir si tienes un sistema de login
+                area: 'Recepción Emergencia',
             };
 
             try {
-                // Insertar los datos en la tabla 'data_reportes'
                 const { error } = await supabase
                     .from('data_reportes')
                     .insert([dataToInsert]);
 
-                if (error) {
-                    // Si hay un error, lanzarlo para que lo capture el bloque catch
-                    throw error;
-                }
+                if (error) throw error;
 
-                // Si todo fue bien, mostrar mensaje de éxito
                 showMessage('¡Datos guardados correctamente!', 'success');
-                
-                // Limpiar los campos del formulario
                 nroIngresoInput.value = '';
                 nroRegistroInput.value = '';
-                nroIngresoInput.focus(); // Poner el foco en el primer campo
+                nroIngresoInput.focus();
 
             } catch (error) {
-                // Si hubo un error, mostrarlo
                 console.error('Error al guardar los datos:', error);
                 showMessage(`Error: ${error.message}`, 'error');
             } finally {
-                // Volver a habilitar el botón
                 saveButton.disabled = false;
                 saveButton.textContent = 'Guardar Datos';
             }
         });
 
-        // Función para mostrar mensajes de estado
         function showMessage(text, type) {
             statusMessage.className = `message ${type}`;
             statusMessage.textContent = text;
             statusMessage.style.display = 'block';
-
-            // Ocultar el mensaje después de 4 segundos
             setTimeout(() => {
                 statusMessage.style.display = 'none';
             }, 4000);
