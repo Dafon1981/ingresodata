@@ -60,34 +60,31 @@
         </main>
     </div>
 <script>
-    // 1. Tus credenciales exactas
+    // 1. CONFIGURACIÓN DE SUPABASE
     const SUPABASE_URL = 'https://esiklpxyectbekxvajnw.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVzaWtscHh5ZWN0YmVreHZham53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2OTI1MjEsImV4cCI6MjA3NzI2ODUyMX0.mtQnqUrTmhmN1DQxOAUnGpizhYZobStHDH0cz_XfKGU';
     
-    // 2. Declaramos la variable supabase que usaremos en toda la app
-    let supabase;
+    // --- ¡LA CORRECCIÓN CLAVE ESTÁ AQUÍ! ---
+    // Usamos el método que SÍ funciona en tu otra app
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY );
 
-    // 3. Elementos del DOM
-    const dataForm = document.getElementById('dataForm' );
+    // 2. ELEMENTOS DEL DOM
+    const dataForm = document.getElementById('dataForm');
     const nroIngresoInput = document.getElementById('nroIngreso');
     const nroRegistroInput = document.getElementById('nroRegistro');
     const saveButton = document.getElementById('saveButton');
     const statusMessage = document.getElementById('statusMessage');
     const connectionStatus = document.getElementById('connectionStatus');
 
-    // 4. Lógica principal que se ejecuta al cargar la página
+    // 3. LÓGICA DE LA APLICACIÓN
     document.addEventListener('DOMContentLoaded', () => {
-        initializeAndCheckConnection();
+        checkSupabaseConnection();
         dataForm.addEventListener('submit', handleFormSubmit);
     });
 
-    // 5. Función para inicializar y verificar la conexión
-    async function initializeAndCheckConnection() {
+    async function checkSupabaseConnection() {
         try {
-            // Inicialización CORRECTA de Supabase
-            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-            // Prueba de lectura
+            // Hacemos una consulta simple para probar la conexión
             const { error } = await supabase.from('data_reportes').select('id').limit(1);
             if (error) throw error;
 
@@ -108,16 +105,9 @@
         }
     }
 
-    // 6. Función para manejar el envío del formulario
     async function handleFormSubmit(event) {
         event.preventDefault();
         
-        // Si por alguna razón supabase no se inicializó, no continuamos
-        if (!supabase) {
-            showMessage('Error: La conexión con la base de datos no está establecida.', 'error');
-            return;
-        }
-
         const nro_ingreso = parseInt(nroIngresoInput.value, 10) || 0;
         const nro_registro = parseInt(nroRegistroInput.value, 10) || 0;
 
@@ -149,7 +139,6 @@
         }
     }
 
-    // 7. Función para mostrar mensajes de estado
     function showMessage(text, type) {
         statusMessage.className = `message ${type}`;
         statusMessage.textContent = text;
