@@ -17,126 +17,33 @@
             --header-text-color: #ffffff;
             --border-color: #ced4da;
         }
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--background-color );
-            color: var(--text-color);
-        }
-        .app-container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .header {
-            background-color: var(--header-bg-color);
-            color: var(--header-text-color);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 10px; /* Reducido */
-            text-align: center;
-        }
-        .header h1 {
-            font-size: 1.8em;
-            margin: 0;
-        }
-        /* --- ¡NUEVO! Estilo para el indicador de conexión --- */
-        .connection-status {
-            text-align: center;
-            padding: 8px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            font-weight: 500;
-            display: none; /* Oculto por defecto */
-        }
-        .connection-status.success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        .connection-status.error {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-        .form-container {
-            background-color: var(--surface-color);
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-        .form-group {
-            margin-bottom: 25px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 1.1em;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-        .form-group input[type="number"] {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 1.5em;
-            text-align: center;
-            -moz-appearance: textfield;
-        }
-        .form-group input[type="number"]::-webkit-outer-spin-button,
-        .form-group input[type="number"]::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        .btn {
-            width: 100%;
-            padding: 18px;
-            border: none;
-            border-radius: 6px;
-            font-size: 1.2em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .btn-success {
-            background-color: var(--success-color);
-            color: white;
-        }
-        .btn-success:hover {
-            background-color: #218838;
-        }
-        .btn-success:disabled {
-            background-color: #94d3a2;
-            cursor: not-allowed;
-        }
-        .message {
-            text-align: center;
-            padding: 10px;
-            margin-top: 20px;
-            border-radius: 5px;
-            display: none;
-        }
-        .message.success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        .message.error {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
+        body, html { margin: 0; padding: 0; width: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: var(--background-color ); color: var(--text-color); }
+        .app-container { max-width: 500px; margin: 0 auto; padding: 20px; }
+        .header { background-color: var(--header-bg-color); color: var(--header-text-color); padding: 20px; border-radius: 8px; margin-bottom: 10px; text-align: center; }
+        .header h1 { font-size: 1.8em; margin: 0; }
+        .connection-status { text-align: center; padding: 8px; margin-bottom: 15px; border-radius: 5px; font-weight: 500; display: none; }
+        .connection-status.success { background-color: #d4edda; color: #155724; }
+        .connection-status.error { background-color: #f8d7da; color: #721c24; }
+        .form-container { background-color: var(--surface-color); padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; font-size: 1.1em; font-weight: 500; margin-bottom: 10px; }
+        .form-group input[type="number"] { width: 100%; box-sizing: border-box; padding: 15px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 1.5em; text-align: center; -moz-appearance: textfield; }
+        .form-group input[type="number"]::-webkit-outer-spin-button, .form-group input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        .btn { width: 100%; padding: 18px; border: none; border-radius: 6px; font-size: 1.2em; font-weight: bold; cursor: pointer; transition: all 0.3s ease; }
+        .btn-success { background-color: var(--success-color); color: white; }
+        .btn-success:hover { background-color: #218838; }
+        .btn-success:disabled { background-color: #94d3a2; cursor: not-allowed; }
+        .message { text-align: center; padding: 10px; margin-top: 20px; border-radius: 5px; display: none; }
+        .message.success { background-color: #d4edda; color: #155724; }
+        .message.error { background-color: #f8d7da; color: #721c24; }
     </style>
 </head>
 <body>
-
     <div class="app-container">
         <header class="header">
             <h1>Recepción Emergencia Datos</h1>
         </header>
-
-        <!-- ¡NUEVO! Indicador de Conexión -->
         <div id="connectionStatus" class="connection-status">Conectando...</div>
-
         <main class="form-container">
             <form id="dataForm">
                 <div class="form-group">
@@ -153,41 +60,29 @@
         </main>
     </div>
 <script>
-    // 1. CONFIGURACIÓN DE SUPABASE
     const SUPABASE_URL = 'https://esiklpxyectbekxvajnw.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVzaWtscHh5ZWN0YmVreHZham53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2OTI1MjEsImV4cCI6MjA3NzI2ODUyMX0.mtQnqUrTmhmN1DQxOAUnGpizhYZobStHDH0cz_XfKGU';
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY );
 
-    // 2. ELEMENTOS DEL DOM
     const dataForm = document.getElementById('dataForm');
     const nroIngresoInput = document.getElementById('nroIngreso');
     const nroRegistroInput = document.getElementById('nroRegistro');
     const saveButton = document.getElementById('saveButton');
     const statusMessage = document.getElementById('statusMessage');
-    const connectionStatus = document.getElementById('connectionStatus'); // ¡NUEVO!
+    const connectionStatus = document.getElementById('connectionStatus');
 
-    // 3. LÓGICA DE LA APLICACIÓN
     document.addEventListener('DOMContentLoaded', () => {
-        checkSupabaseConnection(); // ¡NUEVO! Llama a la función de verificación
+        checkSupabaseConnection();
         dataForm.addEventListener('submit', handleFormSubmit);
     });
 
-    // --- ¡NUEVA FUNCIÓN! Para verificar la conexión al cargar la página ---
     async function checkSupabaseConnection() {
         try {
-            // Hacemos una consulta simple y que no cuesta nada para probar la conexión
             const { error } = await supabase.from('data_reportes').select('id').limit(1);
-            
-            if (error) {
-                // Si hay un error en la consulta (ej. por RLS de SELECT), lo lanzamos
-                throw error;
-            }
-            
-            // Si la consulta funciona, la conexión es exitosa
+            if (error) throw error;
             connectionStatus.textContent = 'Conexión Exitosa';
             connectionStatus.className = 'connection-status success';
             connectionStatus.style.display = 'block';
-
         } catch (error) {
             console.error('Error de conexión inicial con Supabase:', error);
             connectionStatus.textContent = `Error de Conexión: ${error.message}`;
@@ -198,42 +93,23 @@
 
     async function handleFormSubmit(event) {
         event.preventDefault();
-        
         const nro_ingreso = parseInt(nroIngresoInput.value, 10) || 0;
         const nro_registro = parseInt(nroRegistroInput.value, 10) || 0;
-
-        // --- ¡NUEVO! Mensaje de confirmación ---
         const isConfirmed = confirm(`¿Está seguro de que desea guardar los siguientes datos?\n\n- Ingresos: ${nro_ingreso}\n- Registros: ${nro_registro}`);
-
-        if (!isConfirmed) {
-            return; // Si el usuario cancela, no hacemos nada
-        }
-        // --- FIN DEL CAMBIO ---
+        if (!isConfirmed) return;
 
         saveButton.disabled = true;
         saveButton.textContent = 'Guardando...';
-        
         const fecha = new Date().toISOString().split('T')[0];
-
-        const dataToInsert = {
-            fecha: fecha,
-            nro_ingreso: nro_ingreso,
-            nro_registro: nro_registro,
-            area: 'Recepción Emergencia',
-        };
+        const dataToInsert = { fecha, nro_ingreso, nro_registro, area: 'Recepción Emergencia' };
 
         try {
-            const { error } = await supabase
-                .from('data_reportes')
-                .insert([dataToInsert]);
-
+            const { error } = await supabase.from('data_reportes').insert([dataToInsert]);
             if (error) throw error;
-
             showMessage('¡Datos guardados correctamente!', 'success');
             nroIngresoInput.value = '';
             nroRegistroInput.value = '';
             nroIngresoInput.focus();
-
         } catch (error) {
             console.error('Error al guardar los datos:', error);
             showMessage(`Error: ${error.message}`, 'error');
@@ -247,11 +123,8 @@
         statusMessage.className = `message ${type}`;
         statusMessage.textContent = text;
         statusMessage.style.display = 'block';
-        setTimeout(() => {
-            statusMessage.style.display = 'none';
-        }, 4000);
+        setTimeout(() => { statusMessage.style.display = 'none'; }, 4000);
     }
 </script>
-
 </body>
 </html>
