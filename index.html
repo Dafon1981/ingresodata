@@ -60,10 +60,14 @@
         </main>
     </div>
 <script>
+    // 1. CONFIGURACIÓN DE SUPABASE
     const SUPABASE_URL = 'https://esiklpxyectbekxvajnw.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVzaWtscHh5ZWN0YmVreHZham53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2OTI1MjEsImV4cCI6MjA3NzI2ODUyMX0.mtQnqUrTmhmN1DQxOAUnGpizhYZobStHDH0cz_XfKGU';
+    
+    // --- ¡LA CORRECCIÓN CLAVE ESTÁ AQUÍ! ---
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY );
 
+    // 2. ELEMENTOS DEL DOM
     const dataForm = document.getElementById('dataForm');
     const nroIngresoInput = document.getElementById('nroIngreso');
     const nroRegistroInput = document.getElementById('nroRegistro');
@@ -71,6 +75,7 @@
     const statusMessage = document.getElementById('statusMessage');
     const connectionStatus = document.getElementById('connectionStatus');
 
+    // 3. LÓGICA DE LA APLICACIÓN
     document.addEventListener('DOMContentLoaded', () => {
         checkSupabaseConnection();
         dataForm.addEventListener('submit', handleFormSubmit);
